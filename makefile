@@ -49,7 +49,7 @@ LIBS          = -lopenblas
 
 ifneq (,$(findstring -Dmod_basalt_cmp,$(CPFLAGS)))
   # Found -Dmod_basalt_cmp
-  INC          = -I/storage/coda1/p-creinhard3/0/ykanzaki3/PyWeath/data 
+  INC          = -I./data 
 else
   # Not found
   INC          = 
