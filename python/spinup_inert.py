@@ -1,8 +1,9 @@
+import argparse
 import os
 import make_inputs
 import shutil
     
-def run_closed_inert_cec(cec,act_ON_IN,data):
+def run_closed_inert_cec(cec,act_ON_IN,data,outdir="./scepter_output"):
 
     use_local_storage = True
     use_local_storage = False
@@ -17,7 +18,7 @@ def run_closed_inert_cec(cec,act_ON_IN,data):
     
     alpha = 3.4
     
-    outdir = '../scepter_output/'
+    #outdir = '../scepter_output/'
     if use_local_storage:  outdir = os.environ['TMPDIR'] + '/scepter_output/'
     # runname = 'test_inert_spinup_cec_{:d}'.format(cec) 
     if act_ON_IN: runname = 'test_inert_spinup_act_cec_{:d}'.format(cec) + '_'+ data
@@ -197,21 +198,29 @@ def run_closed_inert_cec(cec,act_ON_IN,data):
             shutil.rmtree(dst)
             shutil.copytree(src, dst)
    
-def main():
+def main(outdir):
     
     cec_list = list(range(21))
     act_ON_IN = False
     act_ON_IN = True
     
     data = 'Sikora'
-    
+ 
     for cec in cec_list:
-        run_closed_inert_cec(cec,act_ON_IN,data)
+        run_closed_inert_cec(cec,act_ON_IN,data,outdir)
         
         
         
    
 if __name__ == '__main__':
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--outdir", help="path where output will be saved", default="./scepter_output/"
+    )
+    args = parser.parse_args()
+
+    outdir = args.outdir
+
+    main(outdir)
     
     
