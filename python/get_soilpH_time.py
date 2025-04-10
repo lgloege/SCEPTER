@@ -1,3 +1,4 @@
+import argparse
 import os
 import numpy as np
 import get_int_prof_time
@@ -518,14 +519,14 @@ def timeseries_soilpH():
     # np.savetxt(outdir+runname_field+'/timeseries_soil_ph_'+str(int(dep_sample*100)) +'cm.res',np.array(res_list))
 
 
-def CECseries_bufferpH(act_ON,database_name):
+def CECseries_bufferpH(act_ON,database_name,outdir):
     
     
     cec_list = [0,1,2,4,8,16,32,64]
     cec_list = list(range(21))
     cec_list = list(range(13))
     
-    outdir = '../scepter_output/'
+    #outdir = '../scepter_output/'
     
     res_list = []
     
@@ -839,17 +840,17 @@ def MK2010_series_soilpH_2(
     else: np.savetxt(outdir + runname_field + '/' + frame.f_code.co_name+'_0p01MCaCl2_NaCl_ws1.res',np.array(res_list))
     
     
-def main():         
+def main(outdir):         
 
 
     # timeseries_soilpH()
     # exit("end run")
     
     
-    # act_ON = True
-    # database_name = 'Sikora'
-    # CECseries_bufferpH(act_ON,database_name)
-    # exit("end run")
+    act_ON = True
+    database_name = 'Sikora'
+    CECseries_bufferpH(act_ON,database_name,outdir)
+    exit("end run")
     
     
     
@@ -885,7 +886,7 @@ def main():
     name_base  = 'chk_Pot7_25C_v2_act_2CEC{:.1f}-{:.1f}_pH{:.1f}_alpha'.format(cec_1,cec_2,ph_pw).replace('.','p')
     name_base  = 'chk2_Pot7_25C_v2_act_2CEC{:.1f}-{:.1f}_pH{:.1f}_alpha'.format(cec_1,cec_2,ph_pw).replace('.','p')
     
-    outdir  = '../scepter_output/'
+    #outdir  = '../scepter_output/'
     
     alpha_list = list(np.linspace(0.1,5.5,19))
     alpha_list = [3.4]
@@ -992,4 +993,12 @@ def main():
                 
     
 if __name__ == '__main__':
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--outdir", help="path where output will be saved", default="./scepter_output/"
+    )
+    args = parser.parse_args() 
+    
+    outdir = args.outdir
+
+    main(outdir)
