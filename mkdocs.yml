@@ -1,7 +1,7 @@
 site_name: SCEPTER Documentation
 site_url: https://lgloege.github.io/SCEPTER/
 repo_name: lgloege/SCEPTER
-repo_url: https://github.com/SCEPTER
+repo_url: https://github.com/lgloege/SCEPTER
 
 theme:
   icon:
