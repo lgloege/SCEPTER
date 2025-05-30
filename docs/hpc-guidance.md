@@ -1,6 +1,69 @@
-# Running on an HPC
+# Yale Grace Cluster
 
-You will most likely be running simulations on a shared cluster or high performance computer. Here will will provide some guidance on running simulations on specific HPCs
+Yale Grace cluster is a shared high performance computer (HPC) maintained by the Yale Center for Research and Computing (YCRC). The YCRC maintains an [excellent documentation page](https://docs.ycrc.yale.edu/clusters/grace/), but I will provide an abbreviated version on this page. However, for more details on any topic please see the YCRC documentation.
+
+## Steps to Get Setup and Log Into Grace
+
+1. [Request an account](https://research.computing.yale.edu/support/hpc/account-request) if you do not already have one
+2. Send us your public SSH key with the YCRC's [SSH key uploader](https://sshkeys.ycrc.yale.edu/). Allow up to ten minutes for it to propagate. See the box below if you need help finding or generating an SSH key. SSH is the Secure SHell protocol and it allows you to connect to remote (or cloud) computers, such as Grace. 
+3. Once YCRC has your public key then you can connect to Grace with the following terminal command:
+```
+ssh netid@clustername.ycrc.yale.edu
+```
+If you are off campus you will need to first connect to [Yale's VPN](https://docs.ycrc.yale.edu/clusters-at-yale/access/vpn/)
+
+!!! Note "Creating an SSH Key"
+    First see if you have any SSH keys on your computer by copying the following command into the terminal 
+    
+    ```
+    ls ~/.ssh/*.pub
+    ```
+    
+    If you anything is displayed, then you have you have an SSH key. If you do, then you use this command to copy the key (the name may be different depending on the encryption algorithm used):
+     ```
+     pbcopy < ~/.ssh/id_ed25519.pub
+     ``` 
+    
+    Alternatively, you can just print the key to the screen and then copy it:
+
+    ```
+    more ~/.ssh/id_ed25519.pub
+    ```
+    
+    Finally, if you do not have a key, then use the following command to generate one (make sure to change the email address):
+
+    ```
+    ssh-keygen -t ed25519 -C "your_email@example.com"
+    ```
+
+## Creating a Python Environment on Grace
+Use the following steps to create a conda Python environment on Grace. These steps are an abbreviated version of [YCRC's more detailed instructions](https://docs.ycrc.yale.edu/clusters-at-yale/guides/conda/#setup-your-environment).
+
+1. Log into grace with the `ssh netid@clustername.ycrc.yale.edu`
+2. Start an interactice session of the devel partion by copying the following command into the terminal (need to be on Grace): 
+```
+salloc --partition=devel --mem=15G --time=2:00:00 --cpus-per-task=2
+```
+This puts you into a compute node for two hours and gives you 15G of memory
+3. Now we need to load miniconda. This can done with the following command:
+```
+module load miniconda
+```
+4. Once miniconda is loaded, you can create a new environment like this:
+```
+conda create -n scepter python numpy pandas matplotlib jupyter jupyterlab
+```
+Here I named the environment scepter and installed relevant packages into it. We only really need `numpy`, but the others may be useful for analysis later
+5. Now let's load the environment into OOD so we can use in a Jupyter notebook --- if you decide to JupyterLab. First, reset the modules:
+```
+module reset
+```
+Then run the following command to load it into the OOD:
+```
+ycrc_conda_env.sh update
+```
+6. That's it! Now you have a conda environment and can use it a Jupyter notebook.
+
 
 ## Yale GRACE cluster
 
