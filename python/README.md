@@ -13,4 +13,5 @@ This directory contains a collection of Python scripts used to run SCEPTER
 * `spinup.py`: run a spin-up run
 * `spinup_inert.py`: run series of run with bulk speces varying CECs
 * `spinup_inrt2.py`: run series of run with bulk and OM speces varying CECs etc.
-* `test_phreeqc_ex11.py`: run series of run with an exchanger bulk species 
+* `test_phreeqc_ex11.py`: run series of run with an exchanger bulk species. Initially equilibrated with porewater of 1 mM Na and 0.2 mM K and 1.2 mM NO3 and replaced by porewater with a different composition with 1.2 mM CaCl2 through advection and dispersion characterized with the Peclet number 40 as in Appelo (1994).
+* `test_phreeqc_ex11_init.py`: run series of run with an exchanger bulk species with 1 mM Na and 0.2 mM K and 1-15 mM NO3
